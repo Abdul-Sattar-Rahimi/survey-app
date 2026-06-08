@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نظرسنجی‌ساز</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ===== LANDING PAGE ===== -->
+<div id="page-landing" class="page active">
+  <div class="bg-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <nav class="navbar">
+    <div class="logo">📊 نظرسنجی‌ساز</div>
+    <div class="nav-links">
+      <button class="btn-ghost" onclick="showPage('page-login')">ورود</button>
+      <button class="btn-primary" onclick="showPage('page-register')">ثبت‌نام رایگان</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-badge">✨ رایگان و بدون نیاز به نصب</div>
+    <h1>نظرسنجی بساز،<br/><span class="gradient-text">نتیجه ببین</span></h1>
+    <p class="hero-sub">در کمتر از ۲ دقیقه یه نظرسنجی حرفه‌ای بساز، لینکش رو بفرست، نتیجه رو تحلیل کن.</p>
+    <div class="hero-btns">
+      <button class="btn-primary btn-lg" onclick="showPage('page-register')">شروع کن — رایگانه 🚀</button>
+      <button class="btn-outline btn-lg" onclick="showPage('page-login')">قبلاً ثبت‌نام کردم</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">۳ نوع</span><span class="stat-label">پاسخ‌دهی</span></div>
+      <div class="stat"><span class="stat-num">لینک</span><span class="stat-label">اشتراک‌گذاری</span></div>
+      <div class="stat"><span class="stat-num">آنی</span><span class="stat-label">مشاهده نتایج</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="page-login" class="page">
+  <div class="bg-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+  </div>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">📊</div>
+        <h2>خوش برگشتی!</h2>
+        <p>با حساب کاربری‌ات وارد شو</p>
+      </div>
+      <div id="login-error" class="error-msg hidden"></div>
+      <div class="form-group">
+        <label>ایمیل</label>
+        <input type="email" id="login-email" placeholder="email@example.com" />
+      </div>
+      <div class="form-group">
+        <label>رمز عبور</label>
+        <input type="password" id="login-password" placeholder="••••••••" />
+      </div>
+      <button class="btn-primary btn-full" onclick="loginUser()">ورود</button>
+      <div class="auth-footer">
+        حساب نداری؟ <a onclick="showPage('page-register')">ثبت‌نام کن</a>
+      </div>
+      <button class="btn-back" onclick="showPage('page-landing')">← برگشت</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REGISTER PAGE ===== -->
+<div id="page-register" class="page">
+  <div class="bg-blobs">
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">🎉</div>
+        <h2>ثبت‌نام رایگان</h2>
+        <p>یه حساب بساز و شروع کن</p>
+      </div>
+      <div id="register-error" class="error-msg hidden"></div>
+      <div class="form-group">
+        <label>نام و نام خانوادگی</label>
+        <input type="text" id="register-name" placeholder="علی محمدی" />
+      </div>
+      <div class="form-group">
+        <label>ایمیل</label>
+        <input type="email" id="register-email" placeholder="email@example.com" />
+      </div>
+      <div class="form-group">
+        <label>رمز عبور</label>
+        <input type="password" id="register-password" placeholder="حداقل ۶ کاراکتر" />
+      </div>
+      <button class="btn-primary btn-full" onclick="registerUser()">ساخت حساب</button>
+      <div class="auth-footer">
+        قبلاً ثبت‌نام کردی؟ <a onclick="showPage('page-login')">وارد شو</a>
+      </div>
+      <button class="btn-back" onclick="showPage('page-landing')">← برگشت</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="page-dashboard" class="page">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">📊 نظرسنجی‌ساز</div>
+      <nav class="sidebar-nav">
+        <a class="nav-item active" onclick="showPage('page-dashboard')">
+          <span class="nav-icon">📋</span> نظرسنجی‌هام
+        </a>
+        <a class="nav-item" onclick="showPage('page-create')">
+          <span class="nav-icon">➕</span> نظرسنجی جدید
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">؟</div>
+          <div>
+            <div class="user-name" id="user-name-display">...</div>
+            <div class="user-email" id="user-email-display">...</div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="logoutUser()">خروج</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div id="tab-my-surveys">
+        <div class="page-header">
+          <h1>نظرسنجی‌هام</h1>
+          <button class="btn-primary" onclick="showPage('page-create')">+ نظرسنجی جدید</button>
+        </div>
+        <div id="surveys-list" class="surveys-grid">
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>هنوز نظرسنجی نساختی</h3>
+            <p>اولین نظرسنجیت رو بساز!</p>
+            <button class="btn-primary" onclick="showPage('page-create')">شروع کن</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== CREATE SURVEY ===== -->
+<div id="page-create" class="page">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">📊 نظرسنجی‌ساز</div>
+      <nav class="sidebar-nav">
+        <a class="nav-item" onclick="showPage('page-dashboard')">
+          <span class="nav-icon">📋</span> نظرسنجی‌هام
+        </a>
+        <a class="nav-item active">
+          <span class="nav-icon">➕</span> نظرسنجی جدید
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar2">؟</div>
+          <div>
+            <div class="user-name" id="user-name-display2">...</div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="logoutUser()">خروج</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>ساخت نظرسنجی جدید</h1>
+      </div>
+      <div class="create-form">
+        <div class="form-section">
+          <div class="section-num">۱</div>
+          <div class="section-body">
+            <h3>اطلاعات اصلی</h3>
+            <div class="form-group">
+              <label>عنوان نظرسنجی</label>
+              <input type="text" id="survey-title" placeholder="مثلاً: نظرسنجی رضایت از خدمات" />
+            </div>
+            <div class="form-group">
+              <label>متن / سوال نظرسنجی</label>
+              <textarea id="survey-question" placeholder="سوال یا توضیحی که می‌خوای شرکت‌کننده‌ها ببینن..." rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-num">۲</div>
+          <div class="section-body">
+            <h3>نوع پاسخ</h3>
+            <div class="type-cards">
+              <div class="type-card active" onclick="selectType('choice')" id="type-choice">
+                <div class="type-icon">🔘</div>
+                <div class="type-title">گزینه‌ای</div>
+                <div class="type-desc">شرکت‌کننده از گزینه‌ها انتخاب می‌کنه</div>
+              </div>
+              <div class="type-card" onclick="selectType('text')" id="type-text">
+                <div class="type-icon">✍️</div>
+                <div class="type-title">متنی</div>
+                <div class="type-desc">شرکت‌کننده متن آزاد می‌نویسه</div>
+              </div>
+              <div class="type-card" onclick="selectType('both')" id="type-both">
+                <div class="type-icon">🔀</div>
+                <div class="type-title">ترکیبی</div>
+                <div class="type-desc">هم گزینه، هم متن آزاد</div>
+              </div>
+            </div>
+            <div id="choice-options-section" class="options-section">
+              <label>گزینه‌ها</label>
+              <div id="options-list">
+                <div class="option-item"><input type="text" placeholder="گزینه ۱" /><button onclick="removeOption(this)" class="btn-remove">✕</button></div>
+                <div class="option-item"><input type="text" placeholder="گزینه ۲" /><button onclick="removeOption(this)" class="btn-remove">✕</button></div>
+              </div>
+              <button class="btn-add-option" onclick="addOption()">+ افزودن گزینه</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-num">۳</div>
+          <div class="section-body">
+            <h3>مدت زمان فعال بودن</h3>
+            <div class="duration-grid">
+              <div class="duration-card active" onclick="selectDuration(1)" id="dur-1">۱ ساعت</div>
+              <div class="duration-card" onclick="selectDuration(6)" id="dur-6">۶ ساعت</div>
+              <div class="duration-card" onclick="selectDuration(12)" id="dur-12">۱۲ ساعت</div>
+              <div class="duration-card" onclick="selectDuration(24)" id="dur-24">۲۴ ساعت</div>
+              <div class="duration-card" onclick="selectDuration(48)" id="dur-48">۴۸ ساعت</div>
+              <div class="duration-card" onclick="selectDuration(0)" id="dur-0">دلخواه</div>
+            </div>
+            <div id="custom-duration-wrap" class="hidden">
+              <input type="number" id="custom-duration" placeholder="تعداد ساعت" min="1" max="720" />
+              <span class="input-unit">ساعت</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-num">۴</div>
+          <div class="section-body">
+            <h3>نمایش نتایج بعد از پایان</h3>
+            <p class="section-hint">این تنظیم بعداً هم قابل تغییره</p>
+            <div class="display-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="show-percent" checked />
+                <span class="checkmark"></span>
+                درصد هر گزینه
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="show-names" />
+                <span class="checkmark"></span>
+                نام شرکت‌کنندگان
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="show-text-answers" />
+                <span class="checkmark"></span>
+                متن پاسخ‌ها
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-num">۵</div>
+          <div class="section-body">
+            <h3>نوع لینک</h3>
+            <div class="link-type-cards">
+              <div class="type-card active" onclick="selectLinkType('single')" id="link-single">
+                <div class="type-icon">🔗</div>
+                <div class="type-title">یک لینک برای همه</div>
+                <div class="type-desc">هر کسی که لینک داره، نامش رو خودش وارد می‌کنه</div>
+              </div>
+              <div class="type-card" onclick="selectLinkType('multi')" id="link-multi">
+                <div class="type-icon">🔏</div>
+                <div class="type-title">لینک جداگانه برای هر نفر</div>
+                <div class="type-desc">تو نام هر نفر رو وارد می‌کنی، لینک اختصاصی می‌گیری</div>
+              </div>
+            </div>
+            <div id="multi-links-section" class="hidden options-section">
+              <label>اضافه کردن شرکت‌کنندگان</label>
+              <div id="participants-list">
+                <div class="participant-item">
+                  <input type="text" placeholder="نام و نام خانوادگی" />
+                  <button onclick="removeParticipant(this)" class="btn-remove">✕</button>
+                </div>
+              </div>
+              <button class="btn-add-option" onclick="addParticipant()">+ افزودن نفر</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="create-error" class="error-msg hidden"></div>
+        <button class="btn-primary btn-lg btn-create" onclick="createSurvey()">
+          🚀 ساخت نظرسنجی و دریافت لینک
+        </button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== SURVEY LINKS MODAL ===== -->
+<div id="modal-links" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>✅ نظرسنجی ساخته شد!</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-hint">لینک‌های زیر رو کپی کن و برای شرکت‌کننده‌ها بفرست:</p>
+      <div id="links-container"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="goToDashboard()">رفتن به داشبورد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SURVEY TAKE PAGE ===== -->
+<div id="page-take" class="page">
+  <div class="bg-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="take-container">
+    <div class="take-card">
+      <div class="take-header">
+        <div class="take-logo">📊</div>
+        <h2 id="take-title">نظرسنجی</h2>
+        <div id="take-timer" class="timer-badge"></div>
+      </div>
+      <div id="take-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESULTS PAGE ===== -->
+<div id="page-results" class="page">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">📊 نظرسنجی‌ساز</div>
+      <nav class="sidebar-nav">
+        <a class="nav-item" onclick="showPage('page-dashboard')">
+          <span class="nav-icon">📋</span> نظرسنجی‌هام
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="logoutUser()">خروج</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div id="results-content"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== LOADING ===== -->
+<div id="loading-overlay" class="loading-overlay hidden">
+  <div class="spinner"></div>
+  <p>در حال بارگذاری...</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // =============================================
+  // کانفیگ Supabase
+  // =============================================
+  const SUPABASE_URL = 'https://wmgzcnhltsbcygivqirp.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZ3pjbmhsdHNiY3lnaXZxaXJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4OTA0NTQsImV4cCI6MjA5NjQ2NjQ1NH0._BgJKBg4dGjhrilgZZBPaEjRkdDAdrGQaXejaA0TSY0';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // =============================================
+  // State
+  // =============================================
+  let currentUser = null;
+  let currentSurveyType = 'choice';
+  let currentDuration = 1;
+  let currentLinkType = 'single';
+
+  // =============================================
+  // Init
+  // =============================================
+  async function init() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      currentUser = session.user;
+      updateUserUI();
+    }
+
+    sb.auth.onAuthStateChange((_event, session) => {
+      currentUser = session?.user || null;
+      if (currentUser) updateUserUI();
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const surveyId = urlParams.get('s');
+    const linkId = urlParams.get('l');
+
+    if (surveyId) {
+      loadTakePage(surveyId, linkId);
+    } else if (currentUser) {
+      showPage('page-dashboard');
+      loadMySurveys();
+    } else {
+      showPage('page-landing');
+    }
+  }
+
+  function updateUserUI() {
+    const name = currentUser.user_metadata?.name || currentUser.email;
+    const avatar = name[0].toUpperCase();
+    ['user-avatar','user-avatar2'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = avatar; });
+    ['user-name-display','user-name-display2'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = name; });
+    const emailEl = document.getElementById('user-email-display');
+    if (emailEl) emailEl.textContent = currentUser.email;
+  }
+
+  // =============================================
+  // Auth
+  // =============================================
+  async function registerUser() {
+    const name = document.getElementById('register-name').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value;
+    const errEl = document.getElementById('register-error');
+    errEl.classList.add('hidden');
+    if (!name || !email || !password) { showError(errEl, 'همه فیلدها رو پر کن'); return; }
+    if (password.length < 6) { showError(errEl, 'رمز عبور باید حداقل ۶ کاراکتر باشه'); return; }
+    showLoading(true);
+    const { data, error } = await sb.auth.signUp({
+      email, password,
+      options: { data: { name } }
+    });
+    if (error) { showLoading(false); showError(errEl, authErrMsg(error.message)); return; }
+    if (data.user) {
+      await sb.from('users').insert({ id: data.user.id, name, email });
+      currentUser = data.user;
+      updateUserUI();
+      showLoading(false);
+      showPage('page-dashboard');
+      loadMySurveys();
+    }
+  }
+
+  async function loginUser() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    errEl.classList.add('hidden');
+    if (!email || !password) { showError(errEl, 'ایمیل و رمز عبور رو وارد کن'); return; }
+    showLoading(true);
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) { showLoading(false); showError(errEl, authErrMsg(error.message)); return; }
+    currentUser = data.user;
+    updateUserUI();
+    showLoading(false);
+    showPage('page-dashboard');
+    loadMySurveys();
+  }
+
+  async function logoutUser() {
+    await sb.auth.signOut();
+    currentUser = null;
+    window.location.href = window.location.pathname;
+  }
+
+  // =============================================
+  // Create Survey
+  // =============================================
+  async function createSurvey() {
+    if (!currentUser) { showPage('page-login'); return; }
+    const title = document.getElementById('survey-title').value.trim();
+    const question = document.getElementById('survey-question').value.trim();
+    const errEl = document.getElementById('create-error');
+    errEl.classList.add('hidden');
+    if (!title) { showError(errEl, 'عنوان نظرسنجی رو وارد کن'); return; }
+    if (!question) { showError(errEl, 'متن سوال رو وارد کن'); return; }
+
+    let options = [];
+    if (currentSurveyType !== 'text') {
+      options = [...document.querySelectorAll('#options-list .option-item input')]
+        .map(i => i.value.trim()).filter(v => v);
+      if (options.length < 2) { showError(errEl, 'حداقل ۲ گزینه وارد کن'); return; }
+    }
+
+    let hours = currentDuration;
+    if (currentDuration === 0) {
+      hours = parseInt(document.getElementById('custom-duration').value);
+      if (!hours || hours < 1) { showError(errEl, 'مدت زمان رو وارد کن'); return; }
+    }
+
+    const displaySettings = {
+      showPercent: document.getElementById('show-percent').checked,
+      showNames: document.getElementById('show-names').checked,
+      showTextAnswers: document.getElementById('show-text-answers').checked,
+    };
+
+    let participants = [];
+    if (currentLinkType === 'multi') {
+      participants = [...document.querySelectorAll('#participants-list .participant-item input')]
+        .map(i => i.value.trim()).filter(v => v);
+      if (participants.length < 1) { showError(errEl, 'حداقل یه نفر اضافه کن'); return; }
+    }
+
+    showLoading(true);
+    const expiresAt = new Date(Date.now() + hours * 3600000).toISOString();
+    const { data: survey, error } = await sb.from('surveys').insert({
+      title, question, type: currentSurveyType, options,
+      hours, expires_at: expiresAt, display_settings: displaySettings,
+      link_type: currentLinkType,
+      creator_id: currentUser.id,
+      creator_name: currentUser.user_metadata?.name || currentUser.email,
+    }).select().single();
+
+    if (error) { showLoading(false); showError(errEl, 'خطا: ' + error.message); return; }
+
+    const baseUrl = `${window.location.origin}${window.location.pathname}?s=${survey.id}`;
+    let links = [];
+
+    if (currentLinkType === 'single') {
+      links = [{ label: 'لینک عمومی', url: baseUrl }];
+    } else {
+      for (const name of participants) {
+        const { data: linkData } = await sb.from('survey_links').insert({
+          survey_id: survey.id, name, used: false
+        }).select().single();
+        if (linkData) links.push({ label: name, url: `${baseUrl}&l=${linkData.id}` });
+      }
+    }
+
+    showLoading(false);
+    showLinksModal(links);
+  }
+
+  // =============================================
+  // Load My Surveys
+  // =============================================
+  async function loadMySurveys() {
+    if (!currentUser) return;
+    const listEl = document.getElementById('surveys-list');
+    listEl.innerHTML = '<div class="loading-text">در حال بارگذاری...</div>';
+
+    const { data: surveys, error } = await sb.from('surveys')
+      .select('*').eq('creator_id', currentUser.id).order('created_at', { ascending: false });
+
+    if (error || !surveys?.length) {
+      listEl.innerHTML = `<div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h3>هنوز نظرسنجی نساختی</h3>
+        <p>اولین نظرسنجیت رو بساز!</p>
+        <button class="btn-primary" onclick="showPage('page-create')">شروع کن</button>
+      </div>`;
+      return;
+    }
+
+    listEl.innerHTML = '';
+    surveys.forEach(s => {
+      const expired = new Date(s.expires_at) < new Date();
+      const baseUrl = `${window.location.origin}${window.location.pathname}?s=${s.id}`;
+      const card = document.createElement('div');
+      card.className = 'survey-card';
+      card.innerHTML = `
+        <div class="survey-card-header">
+          <span class="survey-type-badge">${typeLabel(s.type)}</span>
+          <span class="survey-status ${expired ? 'expired' : 'active'}">${expired ? '⏰ پایان یافته' : '🟢 فعال'}</span>
+        </div>
+        <h3 class="survey-card-title">${s.title}</h3>
+        <p class="survey-card-q">${s.question}</p>
+        <div class="survey-card-meta">
+          <span>⏱ ${s.hours} ساعت</span>
+          <span>${s.link_type === 'single' ? '🔗 یک لینک' : '🔏 لینک اختصاصی'}</span>
+        </div>
+        <div class="survey-card-actions">
+          <button class="btn-copy" onclick="copyToClipboard('${baseUrl}')">📋 کپی لینک</button>
+          <button class="btn-outline" onclick="viewResults('${s.id}')">📊 نتایج</button>
+        </div>`;
+      listEl.appendChild(card);
+    });
+  }
+
+  // =============================================
+  // Take Survey
+  // =============================================
+  async function loadTakePage(surveyId, linkId) {
+    showPage('page-take');
+    const body = document.getElementById('take-body');
+
+    const { data: survey, error } = await sb.from('surveys').select('*').eq('id', surveyId).single();
+    if (error || !survey) { body.innerHTML = '<p class="take-error">نظرسنجی پیدا نشد.</p>'; return; }
+
+    document.getElementById('take-title').textContent = survey.title;
+    const now = new Date();
+    const expires = new Date(survey.expires_at);
+
+    if (now > expires) {
+      showExpiredResults(survey, surveyId);
+      return;
+    }
+
+    startTimer(expires);
+
+    let lockedName = null;
+    if (survey.link_type === 'multi' && linkId) {
+      const { data: linkData } = await sb.from('survey_links').select('*').eq('id', linkId).single();
+      if (!linkData) { body.innerHTML = '<p class="take-error">لینک نامعتبر است.</p>'; return; }
+      if (linkData.used) { body.innerHTML = '<p class="take-error">این لینک قبلاً استفاده شده.</p>'; return; }
+      lockedName = linkData.name;
+    }
+
+    let nameSection = survey.link_type === 'single'
+      ? `<div class="form-group"><label>نام و نام خانوادگی شما</label><input type="text" id="respondent-name" placeholder="نامت رو وارد کن" /></div>`
+      : `<div class="form-group"><label>شرکت‌کننده</label><div class="locked-name">🔒 ${lockedName}</div></div>`;
+
+    let answerSection = '';
+    if (survey.type === 'choice' || survey.type === 'both') {
+      answerSection += `<div class="form-group"><label>گزینه خود را انتخاب کنید</label>
+        <div class="choice-options">
+          ${survey.options.map(opt => `<label class="radio-label">
+            <input type="radio" name="choice" value="${opt}" />
+            <span class="radio-custom"></span>${opt}
+          </label>`).join('')}
+        </div></div>`;
+    }
+    if (survey.type === 'text' || survey.type === 'both') {
+      answerSection += `<div class="form-group"><label>نظر / پاسخ شما</label>
+        <textarea id="text-answer" placeholder="نظرت رو بنویس..." rows="4"></textarea></div>`;
+    }
+
+    body.innerHTML = `
+      <p class="take-question">${survey.question}</p>
+      ${nameSection}${answerSection}
+      <div id="take-error" class="error-msg hidden"></div>
+      <button class="btn-primary btn-full btn-submit-survey" onclick="submitAnswer('${surveyId}','${linkId||''}','${survey.type}','${survey.link_type}',${JSON.stringify(lockedName)})">ثبت پاسخ ✓</button>`;
+  }
+
+  async function submitAnswer(surveyId, linkId, type, linkType, lockedName) {
+    const errEl = document.getElementById('take-error');
+    errEl.classList.add('hidden');
+    let name = lockedName;
+    if (linkType === 'single') {
+      name = document.getElementById('respondent-name')?.value.trim();
+      if (!name) { showError(errEl, 'نامت رو وارد کن'); return; }
+    }
+    let choice = null, textAnswer = null;
+    if (type === 'choice' || type === 'both') {
+      choice = document.querySelector('input[name="choice"]:checked')?.value || null;
+      if (!choice && type === 'choice') { showError(errEl, 'یه گزینه انتخاب کن'); return; }
+    }
+    if (type === 'text' || type === 'both') {
+      textAnswer = document.getElementById('text-answer')?.value.trim() || null;
+      if (!textAnswer && type === 'text') { showError(errEl, 'نظرت رو بنویس'); return; }
+    }
+    showLoading(true);
+    const { error } = await sb.from('responses').insert({ survey_id: surveyId, name, choice, text_answer: textAnswer });
+    if (linkId) await sb.from('survey_links').update({ used: true }).eq('id', linkId);
+    showLoading(false);
+    if (error) { showError(errEl, 'خطا در ثبت پاسخ'); return; }
+    document.getElementById('take-body').innerHTML = `
+      <div class="success-state">
+        <div class="success-icon">🎉</div>
+        <h3>پاسخ شما ثبت شد!</h3>
+        <p>ممنون از مشارکتت.</p>
+      </div>`;
+    document.getElementById('take-timer').innerHTML = '';
+  }
+
+  // =============================================
+  // Results
+  // =============================================
+  async function viewResults(surveyId) {
+    showPage('page-results');
+    const content = document.getElementById('results-content');
+    content.innerHTML = '<div class="loading-text">در حال بارگذاری نتایج...</div>';
+
+    const { data: survey } = await sb.from('surveys').select('*').eq('id', surveyId).single();
+    const { data: responses } = await sb.from('responses').select('*').eq('survey_id', surveyId);
+    renderResults(survey, responses || [], content);
+  }
+
+  function renderResults(survey, responses, container) {
+    const ds = survey.display_settings;
+    const isOwner = currentUser && currentUser.id === survey.creator_id;
+    const expired = new Date(survey.expires_at) < new Date();
+
+    let optionStats = '';
+    if ((survey.type === 'choice' || survey.type === 'both') && ds.showPercent) {
+      const counts = {};
+      survey.options.forEach(o => counts[o] = 0);
+      responses.forEach(r => { if (r.choice && counts[r.choice] !== undefined) counts[r.choice]++; });
+      const total = responses.length || 1;
+      optionStats = `<div class="results-chart">${survey.options.map(opt => {
+        const pct = Math.round((counts[opt] / total) * 100);
+        return `<div class="chart-bar-wrap">
+          <div class="chart-label">${opt}</div>
+          <div class="chart-bar-bg"><div class="chart-bar" style="width:${pct}%"></div></div>
+          <div class="chart-pct">${pct}%</div>
+        </div>`;
+      }).join('')}</div>`;
+    }
+
+    let responseList = '';
+    if (ds.showNames || ds.showTextAnswers) {
+      responseList = `<div class="response-list">${responses.map(r => `
+        <div class="response-item">
+          ${ds.showNames ? `<div class="resp-name">👤 ${r.name}</div>` : ''}
+          ${r.choice ? `<div class="resp-choice">✓ ${r.choice}</div>` : ''}
+          ${ds.showTextAnswers && r.text_answer ? `<div class="resp-text">"${r.text_answer}"</div>` : ''}
+        </div>`).join('')}</div>`;
+    }
+
+    let settingsPanel = '';
+    if (isOwner) {
+      settingsPanel = `<div class="settings-panel">
+        <h3>⚙️ تنظیمات نمایش (فقط برای شما قابل تغییره)</h3>
+        <div class="display-options">
+          <label class="checkbox-label"><input type="checkbox" ${ds.showPercent?'checked':''} onchange="updateDisplaySettings('${survey.id}','showPercent',this.checked)"/><span class="checkmark"></span> نمایش درصد گزینه‌ها</label>
+          <label class="checkbox-label"><input type="checkbox" ${ds.showNames?'checked':''} onchange="updateDisplaySettings('${survey.id}','showNames',this.checked)"/><span class="checkmark"></span> نمایش نام شرکت‌کنندگان</label>
+          <label class="checkbox-label"><input type="checkbox" ${ds.showTextAnswers?'checked':''} onchange="updateDisplaySettings('${survey.id}','showTextAnswers',this.checked)"/><span class="checkmark"></span> نمایش متن پاسخ‌ها</label>
+        </div>
+      </div>`;
+    }
+
+    container.innerHTML = `
+      <div class="page-header">
+        <h1>📊 ${survey.title}</h1>
+        <span class="survey-status ${expired?'expired':'active'}">${expired?'⏰ پایان یافته':'🟢 فعال'}</span>
+      </div>
+      <p class="results-question">${survey.question}</p>
+      <div class="results-meta"><span>👥 ${responses.length} پاسخ</span><span>⏱ ${survey.hours} ساعت</span></div>
+      ${settingsPanel}${optionStats}${responseList}
+      <button class="btn-outline" onclick="showPage('page-dashboard');loadMySurveys()">← برگشت به داشبورد</button>`;
+  }
+
+  async function updateDisplaySettings(surveyId, key, value) {
+    const { data: survey } = await sb.from('surveys').select('display_settings').eq('id', surveyId).single();
+    const updated = { ...survey.display_settings, [key]: value };
+    await sb.from('surveys').update({ display_settings: updated }).eq('id', surveyId);
+    showToast('✅ تنظیمات ذخیره شد');
+  }
+
+  async function showExpiredResults(survey, surveyId) {
+    const { data: responses } = await sb.from('responses').select('*').eq('survey_id', surveyId);
+    const body = document.getElementById('take-body');
+    const ds = survey.display_settings;
+    let html = '<div class="expired-results"><h3>⏰ این نظرسنجی به پایان رسیده</h3>';
+    if (ds.showPercent && (survey.type === 'choice' || survey.type === 'both')) {
+      const counts = {};
+      survey.options.forEach(o => counts[o] = 0);
+      (responses||[]).forEach(r => { if (r.choice && counts[r.choice] !== undefined) counts[r.choice]++; });
+      const total = (responses||[]).length || 1;
+      html += `<div class="results-chart">${survey.options.map(opt => {
+        const pct = Math.round((counts[opt]/total)*100);
+        return `<div class="chart-bar-wrap"><div class="chart-label">${opt}</div><div class="chart-bar-bg"><div class="chart-bar" style="width:${pct}%"></div></div><div class="chart-pct">${pct}%</div></div>`;
+      }).join('')}</div>`;
+    }
+    if (ds.showNames || ds.showTextAnswers) {
+      html += `<div class="response-list">${(responses||[]).map(r=>`<div class="response-item">
+        ${ds.showNames?`<div class="resp-name">👤 ${r.name}</div>`:''}
+        ${r.choice?`<div class="resp-choice">✓ ${r.choice}</div>`:''}
+        ${ds.showTextAnswers&&r.text_answer?`<div class="resp-text">"${r.text_answer}"</div>`:''}
+      </div>`).join('')}</div>`;
+    }
+    html += `<p style="margin-top:1rem;color:#9B8DB5">مجموع پاسخ‌ها: ${(responses||[]).length}</p></div>`;
+    body.innerHTML = html;
+  }
+
+  // =============================================
+  // Helpers
+  // =============================================
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId)?.classList.add('active');
+    if (pageId === 'page-dashboard') loadMySurveys();
+  }
+
+  function selectType(type) {
+    currentSurveyType = type;
+    document.querySelectorAll('.type-cards .type-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('type-'+type)?.classList.add('active');
+    document.getElementById('choice-options-section').style.display = type === 'text' ? 'none' : 'block';
+  }
+
+  function selectDuration(hours) {
+    currentDuration = hours;
+    document.querySelectorAll('.duration-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('dur-'+hours)?.classList.add('active');
+    document.getElementById('custom-duration-wrap').classList.toggle('hidden', hours !== 0);
+  }
+
+  function selectLinkType(type) {
+    currentLinkType = type;
+    document.querySelectorAll('.link-type-cards .type-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('link-'+type)?.classList.add('active');
+    document.getElementById('multi-links-section').classList.toggle('hidden', type !== 'multi');
+  }
+
+  function addOption() {
+    const list = document.getElementById('options-list');
+    const div = document.createElement('div');
+    div.className = 'option-item';
+    div.innerHTML = `<input type="text" placeholder="گزینه جدید" /><button onclick="removeOption(this)" class="btn-remove">✕</button>`;
+    list.appendChild(div);
+  }
+
+  function removeOption(btn) {
+    if (document.querySelectorAll('#options-list .option-item').length > 2) btn.parentElement.remove();
+  }
+
+  function addParticipant() {
+    const list = document.getElementById('participants-list');
+    const div = document.createElement('div');
+    div.className = 'participant-item';
+    div.innerHTML = `<input type="text" placeholder="نام و نام خانوادگی" /><button onclick="removeParticipant(this)" class="btn-remove">✕</button>`;
+    list.appendChild(div);
+  }
+
+  function removeParticipant(btn) { btn.parentElement.remove(); }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => showToast('✅ لینک کپی شد!'));
+  }
+
+  function showLinksModal(links) {
+    const container = document.getElementById('links-container');
+    container.innerHTML = links.map(l => `
+      <div class="link-item">
+        <div class="link-name">${l.label}</div>
+        <div class="link-url-row">
+          <input type="text" value="${l.url}" readonly class="link-input" />
+          <button class="btn-copy" onclick="copyToClipboard('${l.url}')">📋 کپی</button>
+        </div>
+      </div>`).join('');
+    document.getElementById('modal-links').classList.remove('hidden');
+  }
+
+  function closeModal() { document.getElementById('modal-links').classList.add('hidden'); }
+  function goToDashboard() { closeModal(); showPage('page-dashboard'); }
+
+  function startTimer(expires) {
+    const timerEl = document.getElementById('take-timer');
+    const update = () => {
+      const diff = expires - new Date();
+      if (diff <= 0) { timerEl.textContent = '⏰ زمان به پایان رسید'; return; }
+      const h = Math.floor(diff/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      timerEl.textContent = `⏱ ${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} مانده`;
+    };
+    update(); setInterval(update, 1000);
+  }
+
+  function showError(el, msg) { el.textContent = msg; el.classList.remove('hidden'); }
+  function showLoading(show) { document.getElementById('loading-overlay').classList.toggle('hidden', !show); }
+  function showToast(msg) {
+    const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+    document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
+  }
+  function typeLabel(t) { return t==='choice'?'🔘 گزینه‌ای':t==='text'?'✍️ متنی':'🔀 ترکیبی'; }
+  function authErrMsg(msg) {
+    if (msg.includes('already registered')) return 'این ایمیل قبلاً ثبت شده';
+    if (msg.includes('Invalid login')) return 'ایمیل یا رمز عبور اشتباه است';
+    if (msg.includes('weak')) return 'رمز عبور خیلی ساده است';
+    return 'خطا: ' + msg;
+  }
+
+  init();
+</script>
+</body>
+</html>
